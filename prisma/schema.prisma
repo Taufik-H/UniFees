@@ -16,7 +16,7 @@ model Post {
     name      String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
+    description String?
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String
 
@@ -60,6 +60,9 @@ model User {
     sessions      Session[]
     posts         Post[]
 }
+
+// 
+
 
 model VerificationToken {
     identifier String
