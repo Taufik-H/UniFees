@@ -1,7 +1,7 @@
 <h3 align="center">UniFees: Team Potong Gaji 🔥</h3>
 
 <div align="center">
-  <img height="300" src="https://raw.githubusercontent.com/Taufik-H/UniFees/main/public/readmepict.png"  />
+  <img  src="https://raw.githubusercontent.com/Taufik-H/UniFees/main/public/readmepict.png"  />
 </div>
 <h1 align="center"> Hackfest 2024 🎉</h1>
 <div align="center">
