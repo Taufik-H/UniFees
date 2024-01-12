@@ -18,9 +18,79 @@
 
 ### Tim Kami :
 
-1. Abui
-2. Irsyad
-3. Shopi
-4. Taufik
+<table>
+<tr>
+    <th>
+    No.
+    </th>
+    <th>
+    Nama
+    </th>
+    <th>
+    Role
+    </th>
+    <th>
+    Email
+    </th>
+</tr>
+<tr>
+    <td>
+    1
+    </td>
+    <td>
+    Abuidillah Adjie Muliadi
+    </td>
+    <td>
+    Hustler
+    </td>
+    <td>
+    adjiem31@gmail.com
+    </td>
 
-##
+</tr>
+<tr>
+    <td>
+    2
+    </td>
+    <td>
+    Rizki Muhammad Naufal Irsyad
+    </td>
+    <td>
+    Hipster
+    </td>
+    <td>
+    hello.nflirsyad@gmail.com
+    </td>
+
+</tr>
+<tr>
+    <td>
+    3
+    </td>
+    <td>
+    Sophia Yolanda
+    </td>
+    <td>
+    Hipster
+    </td>
+    <td>
+  sophiayolandajuly@gmail.com
+    </td>
+
+</tr>
+<tr>
+    <td>
+    4
+    </td>
+    <td>
+  Taufik Hidayatulloh
+    </td>
+    <td>
+    Hacker
+    </td>
+    <td>
+    taufikh.dev@gmail.com
+    </td>
+
+</tr>
+</table>
