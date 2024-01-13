@@ -1,11 +1,13 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { NAVBAR_ITEMS } from "../constant";
 import { Button } from "./ui/button";
 import { getServerAuthSession } from "@/server/auth";
+import { LoginButton } from "../components/auth/login-button";
 
 export default async function Navbar() {
   const session = await getServerAuthSession();
+
   return (
     <nav className="max-container padding-container flex items-center justify-between py-3">
       <Link href={"/"} className="text-[32px] font-semibold">
@@ -24,16 +26,16 @@ export default async function Navbar() {
         ))}
       </ul>
       <div className="flex gap-3">
-        <Button
-          variant="outline"
-          className="rounded-lg border-slate-700 bg-transparent font-semibold"
-        >
+        <Button variant="outline">
           <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
-            {session ? "Sign out" : "Sign in"}
+            {session ? "Sign out" : "Masuk"}
           </Link>
         </Button>
-        <Button variant="default" className="rounded-lg font-semibold">
-          Daftar
+
+        <Button>
+          <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
+            {session ? "Sign out" : "Masuk"}
+          </Link>
         </Button>
       </div>
     </nav>
