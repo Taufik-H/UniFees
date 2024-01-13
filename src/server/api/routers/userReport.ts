@@ -1,8 +1,13 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const userReportRouter = createTRPCRouter({
-  findReportsInRadius: protectedProcedure
+  getById: protectedProcedure.input(z.string()).query(({ ctx, input }) => {
+    return ctx.db.userReport.findUnique({
+      where: { id: input },
+    });
+  }),
+  findReportsInRadius: publicProcedure
     .input(
       z.object({
         latitude: z.number(),

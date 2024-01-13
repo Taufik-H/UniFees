@@ -1,4 +1,5 @@
 "use client";
+import { TbPointFilled } from "react-icons/tb";
 
 import * as React from "react";
 import { createRoot } from "react-dom/client";
@@ -13,9 +14,15 @@ const render = (status: Status) => {
 const MapPicker = ({
   onClick,
   markers,
+  onClickMarker,
+  selectedPosition,
 }: {
   onClick: (e: google.maps.MapMouseEvent) => void;
-  markers?: { latLng: google.maps.MarkerOptions["position"] }[];
+  onClickMarker: (reportDataId: string) => void;
+  markers?: ({ latLng: google.maps.MarkerOptions["position"] } & {
+    reportDataId: string;
+  })[];
+  selectedPosition?: google.maps.LatLng;
 }) => {
   const [zoom, setZoom] = React.useState(13); // initial zoom
   const [center, setCenter] = React.useState<google.maps.LatLngLiteral>({
@@ -76,18 +83,36 @@ const MapPicker = ({
   //   </div>
   // );
 
+  const radiusSize = getPixelsPerMeter(selectedPosition?.lat() ?? 0, zoom);
+  console.log({ radiusSize });
   return (
     <div style={{ display: "flex", height: "100%" }}>
       <Wrapper apiKey="AIzaSyDaNiN-jv_uekKLWWmBNR4TNkAcJQiRak8" render={render}>
         <Map
+          onZoomChanged={(map) => {
+            setZoom(map.getZoom()!);
+          }}
           center={center}
-          onClick={onClick}
+          onClick={(e) => {
+            onClick(e);
+          }}
           onIdle={onIdle}
           zoom={zoom}
           style={{ flexGrow: "1", height: "400px" }}
+          selectedPosition={selectedPosition}
         >
-          {markers?.map(({ latLng }, i) => (
-            <Marker key={i} position={latLng} />
+          {markers?.map(({ latLng, reportDataId }, i) => (
+            <Marker
+              reportDataId={reportDataId}
+              onClick={onClickMarker}
+              key={i}
+              icon={{
+                url: "/assets/marker.svg",
+                scaledSize: new google.maps.Size(40, 40),
+              }}
+              title="Click to zoom"
+              position={latLng}
+            />
           ))}
         </Map>
       </Wrapper>
@@ -101,6 +126,8 @@ interface MapProps extends google.maps.MapOptions {
   onClick?: (e: google.maps.MapMouseEvent) => void;
   onIdle?: (map: google.maps.Map) => void;
   children?: React.ReactNode;
+  onZoomChanged?: (map: google.maps.Map) => void;
+  selectedPosition?: google.maps.LatLng;
 }
 
 const Map: React.FC<MapProps> = ({
@@ -108,11 +135,19 @@ const Map: React.FC<MapProps> = ({
   onIdle,
   children,
   style,
+  onZoomChanged,
+  selectedPosition,
   ...options
 }) => {
   const ref = React.useRef<HTMLDivElement>(null);
   const [map, setMap] = React.useState<google.maps.Map>();
-
+  useSelectedPositionMarker(
+    {
+      position: selectedPosition,
+      map: map,
+    },
+    map,
+  );
   React.useEffect(() => {
     if (ref.current && !map) {
       setMap(new window.google.maps.Map(ref.current, {}));
@@ -129,6 +164,9 @@ const Map: React.FC<MapProps> = ({
 
   React.useEffect(() => {
     if (map) {
+      google.maps.event.addListener(map, "zoom_changed", () => {
+        onZoomChanged && onZoomChanged(map);
+      });
       ["click", "idle"].forEach((eventName) =>
         google.maps.event.clearListeners(map, eventName),
       );
@@ -157,12 +195,21 @@ const Map: React.FC<MapProps> = ({
   );
 };
 
-const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
+const Marker: React.FC<
+  google.maps.MarkerOptions & {
+    reportDataId: string;
+    onClick: (reportDataId: string) => void;
+  }
+> = ({ reportDataId, onClick, ...options }) => {
   const [marker, setMarker] = React.useState<google.maps.Marker>();
 
   React.useEffect(() => {
     if (!marker) {
-      setMarker(new google.maps.Marker());
+      setMarker(
+        new google.maps.Marker({
+          clickable: true,
+        }),
+      );
     }
 
     // remove marker from map on unmount
@@ -176,11 +223,166 @@ const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
   React.useEffect(() => {
     if (marker) {
       marker.setOptions(options);
+      marker.addListener("click", () => {
+        onClick(reportDataId);
+      });
     }
   }, [marker, options]);
 
   return null;
 };
+
+// const SelectedPositionMarker: React.FC<google.maps.MarkerOptions> = ({
+//   ...options
+// }) => {
+//   const [marker, setMarker] = React.useState<google.maps.Marker>();
+//   const [circle, setCircle] = React.useState<google.maps.Circle>();
+//   React.useEffect(() => {
+//     if (!marker) {
+//       const marker = new google.maps.Marker();
+//       setMarker(marker);
+//     }
+
+//     // remove marker from map on unmount
+//     return () => {
+//       if (marker) {
+//         marker.setMap(null);
+//       }
+//     };
+//   }, [marker]);
+
+//   React.useEffect(() => {
+//     if (!circle) {
+//       const circle = new google.maps.Circle({
+//         strokeColor: "#c3fc49",
+//         strokeOpacity: 0.8,
+//         strokeWeight: 2,
+//         fillColor: "#c3fc49",
+//         fillOpacity: 0.35,
+//         center: options.position,
+//         radius: 15000, // in meters
+//       });
+//       setCircle(circle);
+//     }
+
+//     // remove marker from map on unmount
+//     return () => {
+//       if (circle) {
+//         circle.setMap(null);
+//       }
+//     };
+//   }, [circle]);
+
+//   React.useEffect(() => {
+//     if (marker) {
+//       marker.setOptions(options);
+//     }
+//   }, [marker, options]);
+
+//   // Bind the circle to the marker
+//   React.useEffect(() => {
+//     if (circle && marker) {
+//       circle.bindTo("center", marker, "position");
+//     }
+//   }, [circle, marker]);
+
+//   return null;
+// };
+
+const useSelectedPositionMarker = (
+  options: google.maps.MarkerOptions,
+  map: google.maps.CircleOptions["map"],
+) => {
+  const [marker, setMarker] = React.useState<google.maps.Marker>();
+  const [circle, setCircle] = React.useState<google.maps.Circle>();
+  React.useEffect(() => {
+    if (!marker) {
+      const marker = new google.maps.Marker();
+      setMarker(marker);
+    }
+
+    // remove marker from map on unmount
+    return () => {
+      if (marker) {
+        marker.setMap(null);
+      }
+    };
+  }, [marker]);
+
+  React.useEffect(() => {
+    if (!circle && map) {
+      const circle = new google.maps.Circle({
+        strokeColor: "#c3fc49",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#c3fc49",
+        fillOpacity: 0.35,
+        center: options.position,
+        map: map,
+        radius: 1000, // in meters
+        clickable: false,
+      });
+      setCircle(circle);
+    }
+
+    // remove marker from map on unmount
+    return () => {
+      if (circle) {
+        circle.setMap(null);
+      }
+    };
+  }, [circle, map]);
+
+  React.useEffect(() => {
+    if (marker) {
+      marker.setOptions(options);
+    }
+  }, [marker, options]);
+
+  // Bind the circle to the marker
+  React.useEffect(() => {
+    if (circle && marker) {
+      circle.bindTo("center", marker, "position");
+    }
+  }, [circle, marker]);
+};
+
+// const Radius: React.FC<{
+//   latlng: google.maps.LatLng;
+// }> = ({ latlng }) => {
+//   const [circle, setCircle] = React.useState<google.maps.Circle>();
+
+//   React.useEffect(() => {
+//     if (!circle) {
+//       setCircle(
+//         new google.maps.Circle({
+//           strokeColor: "#c3fc49",
+//           strokeOpacity: 0.8,
+//           strokeWeight: 2,
+//           fillColor: "#c3fc49",
+//           fillOpacity: 0.35,
+//           center: latlng,
+//           radius: 15000, // in meters
+//         }),
+//       );
+//     }
+
+//     Reacct.useEffect(() => {
+//       if (circle) {
+//         circle.bindTo("center", marker, "position");
+//       }
+//     }, [circle]);
+
+//     // remove marker from map on unmount
+//     return () => {
+//       if (circle) {
+//         circle.setMap(null);
+//       }
+//     };
+//   }, [circle]);
+
+//   return null;
+// };
 
 const deepCompareEqualsForMaps = createCustomEqual(
   (deepEqual) => (a: any, b: any) => {
@@ -215,6 +417,21 @@ function useDeepCompareEffectForMaps(
   dependencies: any[],
 ) {
   React.useEffect(callback, dependencies.map(useDeepCompareMemoize));
+}
+
+const EARTH_CIRCUMFERENCE_METERS = 40075016.686;
+
+function getPixelsPerMeter(lat: number, zoom: number): number {
+  const pixelsPerTile = 256 * zoom;
+  const numTiles: number = Math.pow(2, zoom);
+  const metersPerTile: number =
+    (Math.cos(toRadians(lat)) * EARTH_CIRCUMFERENCE_METERS) / numTiles;
+
+  return pixelsPerTile / metersPerTile;
+}
+
+function toRadians(degrees: number): number {
+  return degrees * (Math.PI / 180);
 }
 
 export default MapPicker;
