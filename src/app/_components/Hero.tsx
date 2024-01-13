@@ -10,7 +10,7 @@ const Hero = () => {
         <h1 className="text-primary-100 w-[486px] text-[72px] font-black ">
           Informasi Biaya Hidup Mahasiswa
         </h1>
-        <p className="mb-5 w-[442px] text-lg">
+        <p className="mb-5 w-[442px] text-xl">
           Kenali biaya hidup di kota rantau untuk perencanaan keuangan yang
           lebih matang.
         </p>

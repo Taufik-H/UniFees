@@ -59,6 +59,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     posts         Post[]
+    userReports   UserReport[]
 }
 
 // 
@@ -70,4 +71,20 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+
+model UserReport {
+    id            String    @id @default(cuid())
+    location      String?
+    foodPrizeFrom Int?
+    foodPrizeTo   Int?
+    transportationPrizeFrom Int?
+    transportationPrizeTo   Int?
+    costPrizeFrom Int?
+    costPrizeTo   Int?
+    longitude     Float?
+    latitude      Float?
+    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId        String
 }
