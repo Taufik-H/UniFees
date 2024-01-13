@@ -25,11 +25,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <script
+        async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaNiN-jv_uekKLWWmBNR4TNkAcJQiRak8&callback=console.debug&libraries=maps,marker&v=beta"
+      ></script>
       <body className={`font-sans ${inter.variable}`}>
         <TRPCReactProvider cookies={cookies().toString()}>
           <header className="bg-primary-20">
             <Navbar />
-            <Hero />
+            {/* <Hero /> */}
           </header>
           {children}
         </TRPCReactProvider>

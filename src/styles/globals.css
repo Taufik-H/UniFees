@@ -113,6 +113,11 @@
 .bg-primary-100 {
   @apply bg-[#2B3D63];
 }
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+ gmp-map {
+  height: 100%;
+}
 
 /* text */
 .text-primary-100 {

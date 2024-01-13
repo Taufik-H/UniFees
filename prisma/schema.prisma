@@ -12,12 +12,12 @@ datasource db {
 }
 
 model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id          Int      @id @default(autoincrement())
+    name        String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
     description String?
-    createdBy   User   @relation(fields: [createdById], references: [id])
+    createdBy   User     @relation(fields: [createdById], references: [id])
     createdById String
 
     @@index([name])
@@ -51,9 +51,9 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String       @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?      @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
@@ -64,7 +64,6 @@ model User {
 
 // 
 
-
 model VerificationToken {
     identifier String
     token      String   @unique
@@ -73,18 +72,17 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-
 model UserReport {
-    id            String    @id @default(cuid())
-    location      String?
-    foodPrizeFrom Int?
-    foodPrizeTo   Int?
+    id                      String  @id @default(cuid())
+    location                String?
+    foodPrizeFrom           Int?
+    foodPrizeTo             Int?
     transportationPrizeFrom Int?
     transportationPrizeTo   Int?
-    costPrizeFrom Int?
-    costPrizeTo   Int?
-    longitude     Float?
-    latitude      Float?
-    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId        String
+    costPrizeFrom           Int?
+    costPrizeTo             Int?
+    longitude               Float?
+    latitude                Float?
+    user                    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId                  String
 }
