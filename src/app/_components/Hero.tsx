@@ -31,7 +31,7 @@ const Hero = () => {
         />
         <Image
           src={"/pattern.svg"}
-          className="ml-40"
+          className="ml-60"
           alt="heroimage"
           width={708}
           height={577.96}
