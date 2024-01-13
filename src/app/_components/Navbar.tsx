@@ -26,17 +26,19 @@ export default async function Navbar() {
         ))}
       </ul>
       <div className="flex gap-3">
-        <Button variant="outline">
+        <Button variant={`${session ? "default" : "outline"}`}>
           <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
             {session ? "Sign out" : "Masuk"}
           </Link>
         </Button>
 
-        <Button>
-          <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
-            {session ? "Sign out" : "Masuk"}
-          </Link>
-        </Button>
+        {!session && (
+          <Button>
+            <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
+              {session ? "Sign out" : "Daftar"}
+            </Link>
+          </Button>
+        )}
       </div>
     </nav>
   );
