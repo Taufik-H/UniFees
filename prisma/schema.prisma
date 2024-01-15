@@ -62,7 +62,6 @@ model User {
     userReports   UserReport[]
 }
 
-// 
 
 
 model VerificationToken {
