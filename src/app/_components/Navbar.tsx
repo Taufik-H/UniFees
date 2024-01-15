@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { NAVBAR_ITEMS } from "../constant";
 import { Button } from "./ui/button";
 import { getServerAuthSession } from "@/server/auth";
-import { LoginButton } from "../components/auth/login-button";
+import Image from "next/image";
 
 export default async function Navbar() {
   const session = await getServerAuthSession();
@@ -25,7 +25,20 @@ export default async function Navbar() {
           </li>
         ))}
       </ul>
-      <div className="flex gap-3">
+      <div className="flex items-center gap-3">
+        <div className="">
+          {session && (
+            <span>
+              <Image
+                src={`${session.user?.image}`}
+                width={40}
+                height={40}
+                alt="avatar"
+                className="rounded-lg"
+              />{" "}
+            </span>
+          )}
+        </div>
         <Button variant={`${session ? "default" : "outline"}`}>
           <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
             {session ? "Sign out" : "Masuk"}
@@ -33,11 +46,13 @@ export default async function Navbar() {
         </Button>
 
         {!session && (
-          <Button>
-            <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
-              {session ? "Sign out" : "Daftar"}
-            </Link>
-          </Button>
+          <>
+            <Button>
+              <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
+                {session ? "Sign out" : "Daftar"}
+              </Link>
+            </Button>
+          </>
         )}
       </div>
     </nav>
