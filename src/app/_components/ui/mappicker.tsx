@@ -3,13 +3,13 @@ import { TbPointFilled } from "react-icons/tb";
 
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-import { Wrapper, type Status } from "@googlemaps/react-wrapper";
+// import { Wrapper, type Status } from "@googlemaps/react-wrapper";
 import { createCustomEqual } from "fast-equals";
 import { isLatLngLiteral } from "@googlemaps/typescript-guards";
 
-const render = (status: Status) => {
-  return <h1>{status}</h1>;
-};
+// const render = (status: Status) => {
+//   return <h1>{status}</h1>;
+// };
 
 const MapPicker = ({
   onClick,
@@ -83,11 +83,11 @@ const MapPicker = ({
   //   </div>
   // );
 
-  const radiusSize = getPixelsPerMeter(selectedPosition?.lat() ?? 0, zoom);
-  console.log({ radiusSize });
+  // const radiusSize = getPixelsPerMeter(selectedPosition?.lat() ?? 0, zoom);
+  // console.log({ radiusSize });
   return (
     <div style={{ display: "flex", height: "100%" }}>
-      <Wrapper apiKey="AIzaSyDaNiN-jv_uekKLWWmBNR4TNkAcJQiRak8" render={render}>
+      {/* <Wrapper apiKey="AIzaSyDaNiN-jv_uekKLWWmBNR4TNkAcJQiRak8" render={render}>
         <Map
           onZoomChanged={(map) => {
             setZoom(map.getZoom()!);
@@ -115,7 +115,7 @@ const MapPicker = ({
             />
           ))}
         </Map>
-      </Wrapper>
+      </Wrapper> */}
       {/* Basic form for controlling center and zoom of map. */}
       {/* {form} */}
     </div>
@@ -156,11 +156,11 @@ const Map: React.FC<MapProps> = ({
 
   // because React does not do deep comparisons, a custom hook is used
   // see discussion in https://github.com/googlemaps/js-samples/issues/946
-  useDeepCompareEffectForMaps(() => {
-    if (map) {
-      map.setOptions(options);
-    }
-  }, [map, options]);
+  // useDeepCompareEffectForMaps(() => {
+  //   if (map) {
+  //     map.setOptions(options);
+  //   }
+  // }, [map, options]);
 
   React.useEffect(() => {
     if (map) {
@@ -384,54 +384,54 @@ const useSelectedPositionMarker = (
 //   return null;
 // };
 
-const deepCompareEqualsForMaps = createCustomEqual(
-  (deepEqual) => (a: any, b: any) => {
-    if (
-      isLatLngLiteral(a) ||
-      a instanceof google.maps.LatLng ||
-      isLatLngLiteral(b) ||
-      b instanceof google.maps.LatLng
-    ) {
-      return new google.maps.LatLng(a).equals(new google.maps.LatLng(b));
-    }
+// const deepCompareEqualsForMaps = createCustomEqual(
+//   (deepEqual) => (a: any, b: any) => {
+//     if (
+//       isLatLngLiteral(a) ||
+//       a instanceof google.maps.LatLng ||
+//       isLatLngLiteral(b) ||
+//       b instanceof google.maps.LatLng
+//     ) {
+//       return new google.maps.LatLng(a).equals(new google.maps.LatLng(b));
+//     }
 
-    // TODO extend to other types
+//     // TODO extend to other types
 
-    // use fast-equals for other objects
-    return deepEqual(a, b);
-  },
-);
+//     // use fast-equals for other objects
+//     return deepEqual(a, b);
+//   },
+// );
 
-function useDeepCompareMemoize(value: any) {
-  const ref = React.useRef();
+// function useDeepCompareMemoize(value: any) {
+//   const ref = React.useRef();
 
-  if (!deepCompareEqualsForMaps(value, ref.current)) {
-    ref.current = value;
-  }
+//   if (!deepCompareEqualsForMaps(value, ref.current)) {
+//     ref.current = value;
+//   }
 
-  return ref.current;
-}
+//   return ref.current;
+// }
 
-function useDeepCompareEffectForMaps(
-  callback: React.EffectCallback,
-  dependencies: any[],
-) {
-  React.useEffect(callback, dependencies.map(useDeepCompareMemoize));
-}
+// function useDeepCompareEffectForMaps(
+//   callback: React.EffectCallback,
+//   dependencies: any[],
+// ) {
+//   React.useEffect(callback, dependencies.map(useDeepCompareMemoize));
+// }
 
-const EARTH_CIRCUMFERENCE_METERS = 40075016.686;
+// const EARTH_CIRCUMFERENCE_METERS = 40075016.686;
 
-function getPixelsPerMeter(lat: number, zoom: number): number {
-  const pixelsPerTile = 256 * zoom;
-  const numTiles: number = Math.pow(2, zoom);
-  const metersPerTile: number =
-    (Math.cos(toRadians(lat)) * EARTH_CIRCUMFERENCE_METERS) / numTiles;
+// function getPixelsPerMeter(lat: number, zoom: number): number {
+//   const pixelsPerTile = 256 * zoom;
+//   const numTiles: number = Math.pow(2, zoom);
+//   const metersPerTile: number =
+//     (Math.cos(toRadians(lat)) * EARTH_CIRCUMFERENCE_METERS) / numTiles;
 
-  return pixelsPerTile / metersPerTile;
-}
+//   return pixelsPerTile / metersPerTile;
+// }
 
-function toRadians(degrees: number): number {
-  return degrees * (Math.PI / 180);
-}
+// function toRadians(degrees: number): number {
+//   return degrees * (Math.PI / 180);
+// }
 
 export default MapPicker;
