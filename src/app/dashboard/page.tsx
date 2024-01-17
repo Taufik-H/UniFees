@@ -8,7 +8,7 @@ import LoadReports from "../_components/loading";
 
 const Dashboard = async () => {
   return (
-    <div className="max-container ">
+    <div className="max-container bg-teal-500 ">
       <div className="relative flex  flex-col items-center justify-center">
         <Image
           src={"/assets/dashboardimage.webp"}
