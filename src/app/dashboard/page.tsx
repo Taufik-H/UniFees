@@ -15,7 +15,7 @@ const Dashboard = async () => {
           width={1440}
           height={480}
           alt="dashboard image"
-          className="min-h-[480px] object-cover object-center "
+          className="min-h-[480px] w-full object-cover object-center "
         />
         <div className="absolute flex  flex-col gap-3 text-center ">
           <h1 className="w-[431px] text-center text-[48px] font-bold capitalize leading-[50px] text-white">
@@ -25,7 +25,7 @@ const Dashboard = async () => {
           <p className="text-xs text-white md:text-sm">
             Optimalkan pengeluaran sehari-hari dengan mudah dan efisien
           </p>
-          <div className="mx-auto flex w-10/12 items-center justify-center rounded-xl bg-white p-2 focus-within:text-rose-500 md:w-full md:p-3">
+          <div className="mx-auto flex  items-center justify-center rounded-xl bg-white p-2 focus-within:text-rose-500 md:w-full md:p-3">
             <LuMapPin
               size={30}
               className="transition-all duration-200 ease-in-out"
