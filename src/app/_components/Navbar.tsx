@@ -19,7 +19,7 @@ export default async function Navbar() {
 
   return (
     <nav
-      className={`max-container padding-container  z-40 flex w-full items-center justify-between ${
+      className={`max-container padding-container z-40  flex w-full items-center justify-between overflow-hidden ${
         session ? "bg-white" : "fixed top-0 bg-transparent"
       } py-3`}
     >
@@ -60,7 +60,7 @@ export default async function Navbar() {
                     className="cursor-pointer rounded-xl"
                   />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="mr-10 w-52">
+                <DropdownMenuContent className="mr-5  w-52 ">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <Link
