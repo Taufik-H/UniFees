@@ -4,12 +4,22 @@ import { NAVBAR_ITEMS } from "../constant";
 import { Button } from "./ui/button";
 import { getServerAuthSession } from "@/server/auth";
 import Image from "next/image";
-
+import { IoLogOut } from "react-icons/io5";
+import { HiMiniBell } from "react-icons/hi2";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 export default async function Navbar() {
   const session = await getServerAuthSession();
 
   return (
-    <nav className="max-container padding-container flex items-center justify-between py-3">
+    <nav className="max-container padding-container flex items-center justify-between bg-transparent py-3">
       <Link href={"/"} className="text-[32px] font-semibold">
         UniFees
       </Link>
@@ -26,24 +36,36 @@ export default async function Navbar() {
         ))}
       </ul>
       <div className="flex items-center gap-3">
+        <HiMiniBell size={25} className="text-primary-100" />
         <div className="">
           {session && (
-            <span>
-              <Image
-                src={`${session.user?.image}`}
-                width={40}
-                height={40}
-                alt="avatar"
-                className="rounded-lg"
-              />{" "}
-            </span>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Image
+                  src={`${session.user?.image}`}
+                  width={40}
+                  height={40}
+                  alt="avatar"
+                  className="cursor-pointer rounded-xl"
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="mr-10 w-52">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="flex items-center justify-start">
+                  <IoLogOut size={20} />
+                  <Button size="sm" variant="ghost">
+                    <Link
+                      href={session ? "/api/auth/signout" : "/api/auth/signin"}
+                    >
+                      {session ? "Sign out" : "Masuk"}
+                    </Link>
+                  </Button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           )}
         </div>
-        <Button variant={`${session ? "default" : "outline"}`}>
-          <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
-            {session ? "Sign out" : "Masuk"}
-          </Link>
-        </Button>
 
         {!session && (
           <>
