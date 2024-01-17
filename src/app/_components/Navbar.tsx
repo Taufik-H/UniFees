@@ -6,6 +6,7 @@ import { getServerAuthSession } from "@/server/auth";
 import Image from "next/image";
 import { IoLogOut } from "react-icons/io5";
 import { HiMiniBell } from "react-icons/hi2";
+import { GoPlus } from "react-icons/go";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,6 +37,12 @@ export default async function Navbar() {
         ))}
       </ul>
       <div className="flex items-center gap-3">
+        <Link href={"/userreports"}>
+          <Button className="flex gap-2">
+            <GoPlus />
+            Buat Ulasan
+          </Button>
+        </Link>
         <HiMiniBell size={25} className="text-primary-100" />
         <div className="">
           {session && (
@@ -69,9 +76,14 @@ export default async function Navbar() {
 
         {!session && (
           <>
+            <Button variant={"outline"}>
+              <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
+                {session ? "Keluar" : "Masuk"}
+              </Link>
+            </Button>
             <Button>
               <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
-                {session ? "Sign out" : "Daftar"}
+                {session ? "Keluar" : "Daftar"}
               </Link>
             </Button>
           </>
