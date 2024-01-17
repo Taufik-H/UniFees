@@ -55,9 +55,13 @@ const ListReports = async () => {
                     <div className="flex flex-col">
                       <p className="text-xs font-medium">Makanan</p>
                       <div className="text-md flex gap-1 font-medium">
-                        <span>{Idn(report.foodPrizeFrom as number)}</span>
+                        <span>
+                          {Idn((report.foodPrizeFrom as number) ?? "undefined")}
+                        </span>
                         <span>s/d</span>
-                        <span>{Idn(report.foodPrizeTo as number)}</span>
+                        <span>
+                          {Idn((report.foodPrizeTo as number) ?? "undefined")}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -73,11 +77,17 @@ const ListReports = async () => {
                       <p className="text-xs font-medium">Transportasi Umum</p>
                       <div className="text-md flex gap-1 font-medium">
                         <span>
-                          {Idn(report.transportationPrizeFrom as number)}
+                          {Idn(
+                            (report.transportationPrizeFrom as number) ??
+                              "undefined",
+                          )}
                         </span>
                         <span>s/d</span>
                         <span>
-                          {Idn(report.transportationPrizeTo as number)}
+                          {Idn(
+                            (report.transportationPrizeTo as number) ??
+                              "undefined",
+                          )}
                         </span>
                       </div>
                     </div>
@@ -92,9 +102,13 @@ const ListReports = async () => {
                     <div className="flex flex-col">
                       <p className="text-xs font-medium">Kos</p>
                       <div className="text-md flex gap-1 font-medium">
-                        <span>{Idn(report.costPrizeFrom as number)}</span>
+                        <span>
+                          {Idn((report.costPrizeFrom as number) ?? "undefined")}
+                        </span>
                         <span>s/d</span>
-                        <span>{Idn(report.costPrizeTo as number)}</span>
+                        <span>
+                          {Idn((report.costPrizeTo as number) ?? "undefined")}
+                        </span>
                       </div>
                     </div>
                   </div>

@@ -17,7 +17,8 @@ export const userReportRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId: string = String(ctx.session.user.id);
+      const userId = String(ctx.session.user.id);
+
       await new Promise((resolve) => setTimeout(resolve, 1000));
       return ctx.db.userReport.create({
         data: {
