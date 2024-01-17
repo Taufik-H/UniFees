@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React, { useState } from "react";
 import { NAVBAR_ITEMS } from "../constant";
 import { Button } from "./ui/button";
 import { getServerAuthSession } from "@/server/auth";
@@ -12,7 +11,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuRadioGroup,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
