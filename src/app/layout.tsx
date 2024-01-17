@@ -2,10 +2,9 @@ import "@/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
-
+import { Toaster } from "react-hot-toast";
 import { TRPCReactProvider } from "@/trpc/react";
 import Navbar from "./_components/Navbar";
-import Hero from "./_components/Hero";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,6 +35,7 @@ export default function RootLayout({
             {/* <Hero /> */}
           </header>
           {children}
+          <Toaster position="top-right" reverseOrder={false} />
         </TRPCReactProvider>
       </body>
     </html>

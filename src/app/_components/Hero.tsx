@@ -1,11 +1,12 @@
 import React from "react";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { GoArrowUpRight } from "react-icons/go";
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
-    <div className="bg-primary-20 max-container padding-container flex items-center justify-between overflow-hidden py-10">
+    <div className="bg-primary-20 max-container padding-container flex items-center justify-between overflow-hidden pt-20">
       <div className="">
         <h1 className="text-primary-100 w-[486px] text-[72px] font-black ">
           Informasi Biaya Hidup Mahasiswa
@@ -14,12 +15,15 @@ const Hero = () => {
           Kenali biaya hidup di kota rantau untuk perencanaan keuangan yang
           lebih matang.
         </p>
-        <Button size="lg" className="flex gap-3 rounded-lg font-semibold">
+        <Link
+          href={"/api/auth/signin"}
+          className={`w-[200px] rounded-lg ${buttonVariants()}`}
+        >
           Daftar Sekarang
           <span>
             <GoArrowUpRight />
           </span>
-        </Button>
+        </Link>
       </div>
       <div className="relative">
         <Image
@@ -28,6 +32,7 @@ const Hero = () => {
           alt="heroimage"
           width={588}
           height={460}
+          priority
         />
         <Image
           src={"/pattern.svg"}

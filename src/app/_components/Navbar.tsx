@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React, { useState } from "react";
 import { NAVBAR_ITEMS } from "../constant";
 import { Button } from "./ui/button";
 import { getServerAuthSession } from "@/server/auth";
@@ -12,7 +11,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuRadioGroup,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
@@ -20,11 +18,15 @@ export default async function Navbar() {
   const session = await getServerAuthSession();
 
   return (
-    <nav className="max-container padding-container flex items-center justify-between bg-transparent py-3">
-      <Link href={"/"} className="text-[32px] font-semibold">
+    <nav
+      className={`max-container padding-container  z-40 flex w-full items-center justify-between ${
+        session ? "bg-white" : "fixed top-0 bg-transparent"
+      } py-3`}
+    >
+      <Link href={"/"} className="text-xl font-semibold md:text-[32px]">
         UniFees
       </Link>
-      <ul className="flex gap-5">
+      <ul className="hidden gap-5 lg:flex ">
         {NAVBAR_ITEMS.map((item) => (
           <li key={item.key}>
             <Link
@@ -37,40 +39,42 @@ export default async function Navbar() {
         ))}
       </ul>
       <div className="flex items-center gap-3">
-        <Link href={"/userreports"}>
-          <Button className="flex gap-2">
-            <GoPlus />
-            Buat Ulasan
-          </Button>
-        </Link>
-        <HiMiniBell size={25} className="text-primary-100" />
         <div className="">
           {session && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Image
-                  src={`${session.user?.image}`}
-                  width={40}
-                  height={40}
-                  alt="avatar"
-                  className="cursor-pointer rounded-xl"
-                />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="mr-10 w-52">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex items-center justify-start">
-                  <IoLogOut size={20} />
-                  <Button size="sm" variant="ghost">
-                    <Link
-                      href={session ? "/api/auth/signout" : "/api/auth/signin"}
-                    >
+            <div className="flex items-center gap-3">
+              <Link href={"/userreports"}>
+                <Button size={"sm"} className="flex gap-2">
+                  <GoPlus size={15} />
+                  Buat Ulasan
+                </Button>
+              </Link>
+              <HiMiniBell size={25} className="text-primary-100" />
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Image
+                    src={`${session.user?.image}`}
+                    width={40}
+                    height={40}
+                    alt="avatar"
+                    className="cursor-pointer rounded-xl"
+                  />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="mr-10 w-52">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <Link
+                    href={session ? "/api/auth/signout" : "/api/auth/signin"}
+                  >
+                    <DropdownMenuItem className="flex cursor-pointer items-center justify-start">
+                      <IoLogOut size={20} />
+
                       {session ? "Sign out" : "Masuk"}
-                    </Link>
-                  </Button>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                    </DropdownMenuItem>
+                  </Link>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           )}
         </div>
 
