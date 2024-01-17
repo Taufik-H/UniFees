@@ -31,7 +31,7 @@ export default function RootLayout({
       ></script>
       <body className={`font-sans ${inter.variable}`}>
         <TRPCReactProvider cookies={cookies().toString()}>
-          <header className="bg-primary-20">
+          <header>
             <Navbar />
             {/* <Hero /> */}
           </header>

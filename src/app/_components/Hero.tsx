@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="max-container padding-container flex items-center justify-between overflow-hidden py-10">
+    <div className="bg-primary-20 max-container padding-container flex items-center justify-between overflow-hidden py-10">
       <div className="">
         <h1 className="text-primary-100 w-[486px] text-[72px] font-black ">
           Informasi Biaya Hidup Mahasiswa
