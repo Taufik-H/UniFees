@@ -1,105 +1,103 @@
-"use client";
+import React from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import toast from "react-hot-toast";
+interface FormData {
+  location: string;
+  costPrizeFrom: number;
+  costPrizeTo: number;
+  foodPrizeFrom: number;
+  foodPrizeTo: number;
+  transportationPrizeFrom: number;
+  transportationPrizeTo: number;
+  longitude: number;
+  latitude: number;
+}
 
 const CreateReport = () => {
   const router = useRouter();
-  const [location, setLocation] = useState("");
-  const [costPrizeFrom, setCostPrizeFrom] = useState(0);
-  const [costPrizeTo, setCostPrizeTo] = useState(0);
-  const [foodPrizeFrom, setFoodPrizeFrom] = useState(0);
-  const [foodPrizeTo, setFoodPrizeTo] = useState(0);
-  const [transportationPrizeFrom, setTransportationPrizeFrom] = useState(0);
-  const [transportationPrizeTo, setTransportationPrizeTo] = useState(0);
-  const [longitude, setLongitude] = useState(0);
-  const [latitude, setLatitude] = useState(0);
+  const { register, handleSubmit } = useForm<FormData>();
   const createReport = api.userReport.createReport.useMutation({
     onSuccess: () => {
       router.refresh();
-      setLocation("");
-      setCostPrizeFrom(0);
-      setCostPrizeTo(0);
-      setFoodPrizeFrom(0);
-      setFoodPrizeTo(0);
-      setTransportationPrizeFrom(0);
-      setTransportationPrizeTo(0);
-      setLongitude(0);
-      setLatitude(0);
     },
   });
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    try {
+      const convertData: FormData = {
+        ...data,
+        costPrizeFrom: Number(data.costPrizeFrom),
+        costPrizeTo: Number(data.costPrizeTo),
+        foodPrizeFrom: Number(data.foodPrizeFrom),
+        foodPrizeTo: Number(data.foodPrizeTo),
+        transportationPrizeFrom: Number(data.transportationPrizeFrom),
+        transportationPrizeTo: Number(data.transportationPrizeTo),
+        longitude: Number(data.longitude),
+        latitude: Number(data.latitude),
+      };
+      createReport.mutate(convertData);
+      toast.success("Berhasil membuat laporan");
+    } catch (error) {
+      toast.error("Gagal membuat laporan");
+    }
+  };
   return (
     <div>
-      <h1>Create Report</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          createReport.mutate({
-            location,
-            costPrizeFrom,
-            costPrizeTo,
-            foodPrizeFrom,
-            foodPrizeTo,
-            transportationPrizeFrom,
-            transportationPrizeTo,
-            longitude,
-            latitude,
-          });
-        }}
-        className="flex flex-col gap-2"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
         <input
           type="text"
           placeholder="Location"
-          onChange={(e) => setLocation(e.target.value)}
-          className="rounded-md border-2 border-gray-300 p-2       "
+          {...register("location")}
+          className="rounded-md border-2 border-gray-300 p-2"
         />
         <input
           type="number"
           placeholder="Cost Prize From"
-          onChange={(e) => setCostPrizeFrom(parseInt(e.target.value))}
+          {...register("costPrizeFrom")}
           className="rounded-md border-2 border-gray-300 p-2"
         />
         <input
           type="number"
           placeholder="Cost Prize To"
-          onChange={(e) => setCostPrizeTo(parseInt(e.target.value))}
+          {...register("costPrizeTo")}
           className="rounded-md border-2 border-gray-300 p-2"
         />
         <input
           type="number"
           placeholder="Food Prize From"
-          onChange={(e) => setFoodPrizeFrom(parseInt(e.target.value))}
+          {...register("foodPrizeFrom")}
           className="rounded-md border-2 border-gray-300 p-2"
         />
         <input
           type="number"
           placeholder="Food Prize To"
-          onChange={(e) => setFoodPrizeTo(parseInt(e.target.value))}
+          {...register("foodPrizeTo")}
           className="rounded-md border-2 border-gray-300 p-2"
         />
         <input
           type="number"
           placeholder="Transportation Prize From"
-          onChange={(e) => setTransportationPrizeFrom(parseInt(e.target.value))}
+          {...register("transportationPrizeFrom")}
           className="rounded-md border-2 border-gray-300 p-2"
         />
         <input
           type="number"
           placeholder="Transportation Prize To"
-          onChange={(e) => setTransportationPrizeTo(parseInt(e.target.value))}
+          {...register("transportationPrizeTo")}
           className="rounded-md border-2 border-gray-300 p-2"
         />
         <input
           type="number"
           placeholder="Longitude"
-          onChange={(e) => setLongitude(parseInt(e.target.value))}
+          {...register("longitude")}
           className="rounded-md border-2 border-gray-300 p-2"
         />
         <input
           type="number"
           placeholder="Latitude"
-          onChange={(e) => setLatitude(parseInt(e.target.value))}
+          {...register("latitude")}
           className="rounded-md border-2 border-gray-300 p-2"
         />
         <button
