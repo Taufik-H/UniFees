@@ -11,14 +11,14 @@ const ListReports = async () => {
   const getReports = await api.userReport.getAll.query();
 
   // ubah ke currency indonesia
-  // function Idn(value: number): string {
-  //   const formattedValue = new Intl.NumberFormat("id-ID", {
-  //     style: "currency",
-  //     currency: "IDR",
-  //   }).format(value);
-  //   // hapus 2 nol ganggu dibelakang
-  //   return formattedValue.replace(/,00$/, "");
-  // }
+  function Idn(value: number | null) {
+    const formattedValue = new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(Number(value));
+    // hapus 2 nol ganggu dibelakang
+    return formattedValue.replace(/,00$/, "");
+  }
   return (
     <div>
       <div className=" my-5 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
@@ -55,9 +55,9 @@ const ListReports = async () => {
                     <div className="flex flex-col">
                       <p className="text-xs font-medium">Makanan</p>
                       <div className="text-md flex gap-1 font-medium">
-                        <span>{report.foodPrizeFrom}</span>
+                        <span>{Idn(report.foodPrizeFrom)}</span>
                         <span>s/d</span>
-                        <span>{report.foodPrizeTo}</span>
+                        <span>{Idn(report.foodPrizeTo)}</span>
                       </div>
                     </div>
                   </div>
@@ -72,9 +72,9 @@ const ListReports = async () => {
                     <div className="flex flex-col">
                       <p className="text-xs font-medium">Transportasi Umum</p>
                       <div className="text-md flex gap-1 font-medium">
-                        <span>{report.transportationPrizeFrom}</span>
+                        <span>{Idn(report.transportationPrizeFrom)}</span>
                         <span>s/d</span>
-                        <span>{report.transportationPrizeTo}</span>
+                        <span>{Idn(report.transportationPrizeTo)}</span>
                       </div>
                     </div>
                   </div>
@@ -88,9 +88,9 @@ const ListReports = async () => {
                     <div className="flex flex-col">
                       <p className="text-xs font-medium">Kos</p>
                       <div className="text-md flex gap-1 font-medium">
-                        <span>{report.costPrizeFrom}</span>
+                        <span>{Idn(report.costPrizeFrom)}</span>
                         <span>s/d</span>
-                        <span>{report.costPrizeTo}</span>
+                        <span>{Idn(report.costPrizeTo)}</span>
                       </div>
                     </div>
                   </div>
