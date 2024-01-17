@@ -22,10 +22,10 @@ const Dashboard = async () => {
             Jelajahi Biaya hidup dikotamu
           </h1>
           {/* <h1 className="text-center text-[48px] font-bold capitalize"></h1> */}
-          <p className="text-sm text-white">
+          <p className="text-xs text-white md:text-sm">
             Optimalkan pengeluaran sehari-hari dengan mudah dan efisien
           </p>
-          <div className="flex items-center rounded-xl   bg-white p-3 focus-within:text-rose-500">
+          <div className="mx-auto flex w-10/12 items-center justify-center rounded-xl bg-white p-2 focus-within:text-rose-500 md:w-full md:p-3">
             <LuMapPin
               size={30}
               className="transition-all duration-200 ease-in-out"
