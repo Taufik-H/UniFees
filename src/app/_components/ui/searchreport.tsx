@@ -10,10 +10,10 @@ const SearchReport = () => {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handleSearch = useDebouncedCallback((term) => {
+  const handleSearch = useDebouncedCallback(function (this: void, term) {
     console.log(`Searching... ${term}`);
 
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
     if (term) {
       params.set("query", term);
     } else {
@@ -38,7 +38,9 @@ const SearchReport = () => {
           placeholder="Tulis lokasimu"
           className="focus-visible:ring-none text-md border-none bg-transparent text-slate-900 outline-0 placeholder:text-slate-900 focus:text-slate-900  focus:ring-transparent"
         />
-        <Button>Cari</Button>
+        <Button onClick={() => handleSearch(searchParams.get("query"))}>
+          Cari
+        </Button>
       </div>
     </>
   );
