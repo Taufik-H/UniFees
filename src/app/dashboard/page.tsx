@@ -8,8 +8,10 @@ import LoadReports from "../_components/loading";
 
 const Dashboard = async () => {
   return (
+
     <div className="max-container">
       <div className="repative flex  flex-col items-center justify-center">
+
         <Image
           src={"/assets/dashboardimage.webp"}
           width={1440}
@@ -39,7 +41,7 @@ const Dashboard = async () => {
           </div>
         </div>
       </div>
-      <div className=" padding-container my-10">
+      <div className=" padding-container my-10 bg-green-500">
         <div className="flex justify-center gap-2 font-medium">
           <Button>For You</Button>
           <Button variant="secondary">Saved Location</Button>

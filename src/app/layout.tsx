@@ -25,18 +25,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* <script
+<script
         async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaNiN-jv_uekKLWWmBNR4TNkAcJQiRak8&callback=console.debug&libraries=maps,marker&v=beta"
-      ></script> */}
+      ></script>
       <body className={cn("bg-white", inter.className)}>
+
         <TRPCReactProvider cookies={cookies().toString()}>
-          <header>
+          <header className="w-full">
             <Navbar />
-            {/* <Hero /> */}
           </header>
           {children}
-          <Toaster position="top-right" reverseOrder={false} />
         </TRPCReactProvider>
       </body>
     </html>
