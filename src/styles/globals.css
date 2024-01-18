@@ -67,6 +67,14 @@
 }
 
 
+.max-container {
+  @apply mx-auto max-w-[1440px];
+}
+
+.padding-container {
+  @apply px-4 md:px-8 lg:px-20;
+}
+
 
 .bg-primary-10 {
   @apply bg-[#FAFBFD];
@@ -100,7 +108,7 @@
 }
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
- gmp-map {
+gmp-map {
   height: 100%;
 }
 

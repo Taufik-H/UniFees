@@ -8,8 +8,10 @@ import LoadReports from "../_components/loading";
 
 const Dashboard = async () => {
   return (
-    <div className="max-container bg-teal-500 ">
-      <div className="relative flex  flex-col items-center justify-center">
+
+    <div className="max-container">
+      <div className="repative flex  flex-col items-center justify-center">
+
         <Image
           src={"/assets/dashboardimage.webp"}
           width={1440}
@@ -18,14 +20,14 @@ const Dashboard = async () => {
           className="min-h-[480px] w-full object-cover object-center "
         />
         <div className="absolute flex  flex-col gap-3 text-center ">
-          <h1 className="w-[431px] text-center text-[48px] font-bold capitalize leading-[50px] text-white">
+          <h1 className="max-w-[431px] text-center text-[48px] font-bold capitalize leading-[50px] text-white">
             Jelajahi Biaya hidup dikotamu
           </h1>
           {/* <h1 className="text-center text-[48px] font-bold capitalize"></h1> */}
           <p className="text-xs text-white md:text-sm">
             Optimalkan pengeluaran sehari-hari dengan mudah dan efisien
           </p>
-          <div className="mx-auto flex  items-center justify-center rounded-xl bg-white p-2 focus-within:text-rose-500 md:w-full md:p-3">
+          <div className="mx-auto flex  w-10/12 items-center justify-center rounded-xl bg-white p-2 focus-within:text-rose-500 md:w-full md:p-3">
             <LuMapPin
               size={30}
               className="transition-all duration-200 ease-in-out"
