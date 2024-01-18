@@ -13,7 +13,7 @@ export default async function Home() {
     redirect("/dashboard");
   }
   return (
-    <main className=" ">
+    <main className="bg-yellow-500 ">
       <Hero />
     </main>
   );
@@ -26,7 +26,7 @@ async function CrudShowcase() {
   const latestPost = await api.post.getLatest.query();
 
   return (
-    <div className="w-full max-w-xs">
+    <div className="w-full bg-orange-500">
       {latestPost ? (
         <p className="truncate">Your most recent post: {latestPost.name}</p>
       ) : (
