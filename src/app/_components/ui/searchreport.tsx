@@ -3,7 +3,6 @@ import { LuMapPin } from "react-icons/lu";
 import { Input } from "./input";
 import { Button } from "./button";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { CgSpinner } from "react-icons/cg";
 import { useState } from "react";
 const SearchReport = () => {
   const searchParams = useSearchParams();
@@ -37,12 +36,7 @@ const SearchReport = () => {
           placeholder="Tulis lokasimu"
           className="focus-visible:ring-none text-md border-none bg-transparent text-slate-900 outline-0 placeholder:text-slate-900 focus:text-slate-900  focus:ring-transparent"
         />
-        <Button
-          className={`${!searchTerm ? "cursor-not-allowed" : "cursor-default"}`}
-          onClick={handleSearch}
-        >
-          Cari
-        </Button>
+        <Button onClick={handleSearch}>Cari</Button>
       </div>
     </>
   );

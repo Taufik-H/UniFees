@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Button } from "../_components/ui/button";
 import ListReports from "../_components/ui/list-reports";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import LoadReports from "../_components/loading";
 import SearchReport from "../_components/ui/searchreport";
 
@@ -13,10 +13,10 @@ const Dashboard = async ({
     page?: string;
   };
 }) => {
-  const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
+  const query = searchParams?.query ?? "";
+  const currentPage = Number(searchParams?.page) ?? 1;
   return (
-    <div className="max-container">
+    <div className="max-container scroll-smooth">
       <div className="repative flex  flex-col items-center justify-center">
         <Image
           src={"/assets/dashboardimage.webp"}
