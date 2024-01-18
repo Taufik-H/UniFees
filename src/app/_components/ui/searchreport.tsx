@@ -4,15 +4,20 @@ import { Input } from "./input";
 import { Button } from "./button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function SearchReport() {
   const params = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-
+  const [type, setType] = useState("");
   const handleSearch = (value: string) => {
     const newParams = new URLSearchParams(params.toString());
-    newParams.set("query", value);
+    if (value) {
+      newParams.set("query", value);
+    } else {
+      newParams.delete("");
+    }
     router.push(`${pathname}?${newParams.toString()}`);
   };
   return (
@@ -24,11 +29,11 @@ export default function SearchReport() {
         />
 
         <Input
-          onChange={(e) => handleSearch(e.target.value)}
+          onChange={(e) => setType(e.target.value)}
           placeholder="Tulis lokasimu"
           className="focus-visible:ring-none text-medium text-md border-none bg-transparent text-slate-900 outline-0 placeholder:text-slate-900 focus:text-slate-900  focus:ring-transparent"
         />
-        {/* <Button onClick={() => setTerm(type)}>Cari</Button> */}
+        <Button onClick={() => handleSearch(type)}>Cari</Button>
       </div>
     </>
   );

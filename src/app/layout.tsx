@@ -36,6 +36,7 @@ export default function RootLayout({
           </header>
           {children}
         </TRPCReactProvider>
+        <Toaster position="top-right" />
       </body>
     </html>
   );
