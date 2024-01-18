@@ -66,6 +66,14 @@
   }
 }
 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
 
 .max-container {
   @apply mx-auto max-w-[1440px];
@@ -74,7 +82,6 @@
 .padding-container {
   @apply px-4 md:px-8 lg:px-20;
 }
-
 
 .bg-primary-10 {
   @apply bg-[#FAFBFD];

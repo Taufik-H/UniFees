@@ -1,12 +1,20 @@
-import { LuMapPin } from "react-icons/lu";
 import Image from "next/image";
 import { Button } from "../_components/ui/button";
-import { Input } from "../_components/ui/input";
 import ListReports from "../_components/ui/list-reports";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import LoadReports from "../_components/loading";
+import SearchReport from "../_components/ui/searchreport";
 
-const Dashboard = async () => {
+const Dashboard = async ({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+}) => {
+  const query = searchParams?.query || "";
+  const currentPage = Number(searchParams?.page) || 1;
   return (
     <div className="max-container">
       <div className="repative flex  flex-col items-center justify-center">
@@ -25,18 +33,10 @@ const Dashboard = async () => {
           <p className="text-xs text-white md:text-sm">
             Optimalkan pengeluaran sehari-hari dengan mudah dan efisien
           </p>
-          <div className="mx-auto flex  w-10/12 items-center justify-center rounded-xl bg-white p-2 focus-within:text-rose-500 md:w-full md:p-3">
-            <LuMapPin
-              size={30}
-              className="transition-all duration-200 ease-in-out"
-            />
-
-            <Input
-              placeholder="Tulis lokasimu"
-              className="focus-visible:ring-none text-md border-none bg-transparent text-slate-900 outline-0 placeholder:text-slate-900 focus:text-slate-900  focus:ring-transparent"
-            />
-            <Button className="font-semibold">Cari</Button>
-          </div>
+          <SearchReport />
+          <p className="text-start text-xs text-white">
+            Contoh : Bandung,Purwokerto,Jakarta, dsb
+          </p>
         </div>
       </div>
       <div className=" padding-container my-10">
@@ -45,8 +45,8 @@ const Dashboard = async () => {
           <Button variant="secondary">Saved Location</Button>
           <Button variant="secondary">History</Button>
         </div>
-        <Suspense fallback={<LoadReports />}>
-          <ListReports />
+        <Suspense key={query + currentPage} fallback={<LoadReports />}>
+          <ListReports query={query} currentPage={currentPage} />
         </Suspense>
       </div>
     </div>
