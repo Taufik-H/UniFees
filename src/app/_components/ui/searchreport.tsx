@@ -36,7 +36,7 @@ const SearchReport = () => {
           placeholder="Tulis lokasimu"
           className="focus-visible:ring-none text-md border-none bg-transparent text-slate-900 outline-0 placeholder:text-slate-900 focus:text-slate-900  focus:ring-transparent"
         />
-        <Button onClick={handleSearch}>Cari</Button>
+        <Button onClick={() => handleSearch()}>Cari</Button>
       </div>
     </>
   );
