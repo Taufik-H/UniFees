@@ -66,15 +66,6 @@
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
 .max-container {
   @apply mx-auto max-w-[1440px];
 }
@@ -115,7 +106,7 @@
 }
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
- gmp-map {
+gmp-map {
   height: 100%;
 }
 

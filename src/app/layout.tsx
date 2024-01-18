@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { Toaster } from "react-hot-toast";
 import { TRPCReactProvider } from "@/trpc/react";
 import Navbar from "./_components/Navbar";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,11 +25,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <script
+      {/* <script
         async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaNiN-jv_uekKLWWmBNR4TNkAcJQiRak8&callback=console.debug&libraries=maps,marker&v=beta"
-      ></script>
-      <body className={` font-sans ${inter.variable}`}>
+      ></script> */}
+      <body className={cn("bg-red-500", inter.className)}>
         <TRPCReactProvider cookies={cookies().toString()}>
           <header>
             <Navbar />
