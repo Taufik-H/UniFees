@@ -6,16 +6,19 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SearchReport() {
+  const { replace } = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { replace } = useRouter();
-  const [value, setValue] = useState<string>("");
+  const [term, setTerm] = useState<string>("");
+  const [type, setType] = useState<string>("");
 
-  const handleSearch = (query: string) => {
-    const params = new URLSearchParams(searchParams);
-    query ? params.set("query", query) : params.delete("query");
-    replace(`${pathname}?${params.toString()}`);
-  };
+  const params = new URLSearchParams(searchParams);
+  if (term) {
+    params.set("query", term);
+  } else {
+    params.delete("query");
+  }
+  replace(`${pathname}?${params.toString()}`);
 
   return (
     <>
@@ -26,11 +29,11 @@ export default function SearchReport() {
         />
 
         <Input
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setType(e.target.value)}
           placeholder="Tulis lokasimu"
           className="focus-visible:ring-none text-medium text-md border-none bg-transparent text-slate-900 outline-0 placeholder:text-slate-900 focus:text-slate-900  focus:ring-transparent"
         />
-        <Button onClick={() => handleSearch(value)}>Cari</Button>
+        <Button onClick={() => setTerm(type)}>Cari</Button>
       </div>
     </>
   );
