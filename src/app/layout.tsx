@@ -35,7 +35,6 @@ export default function RootLayout({
             {/* <Hero /> */}
           </header>
           {children}
-          <Toaster position="top-right" reverseOrder={false} />
         </TRPCReactProvider>
       </body>
     </html>
