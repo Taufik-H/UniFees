@@ -24,12 +24,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`bg-gray-500 font-sans ${inter.variable}`}>
+      <body className={`w-fit bg-gray-500 font-sans ${inter.variable}`}>
         <TRPCReactProvider cookies={cookies().toString()}>
-          <header>
-            <Navbar />
-            {/* <Hero /> */}
-          </header>
+          
           {children}
         </TRPCReactProvider>
       </body>
