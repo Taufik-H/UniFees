@@ -8,9 +8,9 @@ const SearchReport = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  const [searchTerm, setSearchTerm] = useState(searchParams.get("query") || "");
+  const [searchTerm, setSearchTerm] = useState(searchParams.get("query") ?? "");
 
-  async function handleSearch() {
+  const handleSearch = async () => {
     const params = new URLSearchParams(searchParams);
 
     if (searchTerm) {
@@ -20,7 +20,7 @@ const SearchReport = () => {
     }
 
     replace(`${pathname}?${params.toString()}`);
-  }
+  };
 
   return (
     <>
