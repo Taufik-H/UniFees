@@ -7,21 +7,22 @@ import { Button } from "./button";
 import Image from "next/image";
 import Link from "next/link";
 
-const ListReports = async () => {
-  const getReports = await api.userReport.getAll.query();
+const ListReports = async ({ query }: { query: string }) => {
+  const getReports = await api.userReport.searchReports.query({
+    location: query,
+  });
 
-  // ubah ke currency indonesia
   function Idn(value: number | null) {
     const formattedValue = new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
     }).format(Number(value));
-    // hapus 2 nol ganggu dibelakang
+
     return formattedValue.replace(/,00$/, "");
   }
   return (
     <div>
-      <div className=" my-5 grid grid-cols-1 gap-3  md:grid-cols-2 lg:grid-cols-3">
+      <div className=" my-5 grid grid-cols-1 gap-3 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
         {getReports.map((report, index) => (
           <Card className=" rounded-2xl" key={report.id + index}>
             <CardContent className="p-5">

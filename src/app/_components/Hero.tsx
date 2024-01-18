@@ -6,12 +6,12 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <div className="bg-primary-20 max-container padding-container flex items-center justify-between overflow-hidden pt-20">
+    <div className="bg-primary-20 max-container padding-container  flex items-center justify-between overflow-hidden pt-20">
       <div className="">
         <h1 className="text-primary-100 w-[486px] text-[72px] font-black ">
           Informasi Biaya Hidup Mahasiswa
         </h1>
-        <p className="mb-5 w-[442px] text-xl">
+        <p className="text-md mb-5 w-[442px]">
           Kenali biaya hidup di kota rantau untuk perencanaan keuangan yang
           lebih matang.
         </p>

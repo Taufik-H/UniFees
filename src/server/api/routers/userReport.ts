@@ -45,6 +45,18 @@ export const userReportRouter = createTRPCRouter({
       where: { id: input },
     });
   }),
+
+  searchReports: publicProcedure
+    .input(z.object({ location: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.db.userReport.findMany({
+        where: {
+          location: {
+            contains: input.location,
+          },
+        },
+      });
+    }),
   findReportsInRadius: publicProcedure
     .input(
       z.object({
