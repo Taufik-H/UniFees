@@ -4,24 +4,23 @@ import { Input } from "./input";
 import { Button } from "./button";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-import { useDebouncedCallback } from "use-debounce";
+import { useDebounce } from "use-debounce";
+import { useEffect, useState } from "react";
 
 export default function SearchReport() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
+  const [value, setValue] = useState<string>("");
+  const [debounceValue] = useDebounce<string>(value, 300);
 
-  const handleSearch = useDebouncedCallback((term) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", "1");
-    if (term) {
-      params.set("query", term);
-    } else {
-      params.delete("query");
-    }
-    replace(`${pathname}?${params.toString()}`);
-  }, 300);
+  const handleSearch = (query: string) => {
+    setValue(query);
+  };
 
+  useEffect(() => {
+    replace(`${pathname}?query=${debounceValue}`);
+  }, [debounceValue]);
   return (
     <>
       <div className="mx-auto flex  w-10/12 items-center justify-center rounded-xl bg-white p-2 focus-within:text-rose-500 md:w-full md:p-3">
