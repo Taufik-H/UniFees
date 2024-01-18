@@ -8,9 +8,9 @@ const SearchReport = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  const [searchTerm, setSearchTerm] = useState(searchParams.get("query") ?? "");
+  const [searchTerm, setSearchTerm] = useState(searchParams.get("query"));
 
-  const handleSearch = async () => {
+  const handleSearch = () => {
     const params = new URLSearchParams(searchParams);
 
     if (searchTerm) {
