@@ -29,7 +29,7 @@ export default function RootLayout({
         async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaNiN-jv_uekKLWWmBNR4TNkAcJQiRak8&callback=console.debug&libraries=maps,marker&v=beta"
       ></script> */}
-      <body className={cn("bg-red-500", inter.className)}>
+      <body className={cn("bg-white", inter.className)}>
         <TRPCReactProvider cookies={cookies().toString()}>
           <header>
             <Navbar />
