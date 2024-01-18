@@ -39,7 +39,7 @@ const Dashboard = async () => {
           </div>
         </div>
       </div>
-      <div className=" padding-container my-10">
+      <div className=" padding-container my-10 bg-white">
         <div className="flex justify-center gap-2 font-medium">
           <Button>For You</Button>
           <Button variant="secondary">Saved Location</Button>

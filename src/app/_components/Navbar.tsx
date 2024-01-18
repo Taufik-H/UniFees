@@ -20,7 +20,7 @@ export default async function Navbar() {
   return (
     <nav
       className={`max-container padding-container z-40  flex w-full items-center justify-between overflow-hidden ${
-        session ? "bg-white" : "fixed top-0 bg-transparent"
+        session ? "bg-[#ffff]" : "fixed top-0 bg-transparent"
       } py-3`}
     >
       <Link href={"/"} className="text-xl font-semibold md:text-[32px]">
