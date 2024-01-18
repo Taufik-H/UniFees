@@ -3,20 +3,24 @@ import { LuMapPin } from "react-icons/lu";
 import { Input } from "./input";
 import { Button } from "./button";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+
+import { useDebouncedCallback } from "use-debounce";
 
 export default function SearchReport() {
   const searchParams = useSearchParams();
-  const pathname = usePathname();
   const { replace } = useRouter();
-  const [inputValue, setInputValue] = useState("");
+  const pathname = usePathname();
 
-  function handleSearch(term: string) {
-    const params = new URLSearchParams(searchParams ? searchParams : "");
-    term ? params.set("query", term) : params.delete("query");
-
-    replace(`${pathname}?${params}`);
-  }
+  const handleSearch = useDebouncedCallback((term) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
+    if (term) {
+      params.set("query", term);
+    } else {
+      params.delete("query");
+    }
+    replace(`${pathname}?${params.toString()}`);
+  }, 300);
 
   return (
     <>
@@ -27,12 +31,12 @@ export default function SearchReport() {
         />
 
         <Input
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => handleSearch(e.target.value)}
           defaultValue={searchParams.get("query")?.toString()}
           placeholder="Tulis lokasimu"
           className="focus-visible:ring-none text-medium text-md border-none bg-transparent text-slate-900 outline-0 placeholder:text-slate-900 focus:text-slate-900  focus:ring-transparent"
         />
-        <Button onClick={() => handleSearch(inputValue)}>Cari</Button>
+        <Button>Cari</Button>
       </div>
     </>
   );
