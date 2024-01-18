@@ -8,11 +8,11 @@ import SearchReport from "../_components/ui/searchreport";
 const Dashboard = async ({
   searchParams,
 }: {
-  searchParams?: {
+  searchParams: {
     query?: string;
   };
 }) => {
-  const query = searchParams?.query ?? "";
+  const query = searchParams.query ?? "";
 
   return (
     <div className="max-container scroll-smooth">
