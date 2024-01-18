@@ -5,22 +5,16 @@ import { Button } from "./button";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
-const SearchReport = () => {
+export default function SearchReport() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
   const [inputValue, setInputValue] = useState("");
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  /* eslint-disable @typescript-eslint/unbound-method */
+
   const handleSearch = (term: string) => {
-    const params = new URLSearchParams(
-      searchParams ? searchParams.toString() : "",
-    );
-    if (term) {
-      params.set("query", term);
-    } else {
-      params.delete("query");
-    }
+    const params = new URLSearchParams(searchParams ? searchParams : "");
+    term ? params.set("query", term) : params.delete("query");
+
     replace(`${pathname}?${params.toString()}`);
   };
 
@@ -42,6 +36,4 @@ const SearchReport = () => {
       </div>
     </>
   );
-};
-
-export default SearchReport;
+}
