@@ -8,19 +8,18 @@ const SearchReport = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+
   const [searchTerm, setSearchTerm] = useState(searchParams.get("query"));
 
-  const handleSearch = () => {
+  function handleSearch(term: string) {
     const params = new URLSearchParams(searchParams);
-
-    if (searchTerm) {
-      params.set("query", searchTerm);
+    if (term) {
+      params.set("query", term);
     } else {
       params.delete("query");
     }
-
     replace(`${pathname}?${params.toString()}`);
-  };
+  }
 
   return (
     <>
@@ -31,12 +30,14 @@ const SearchReport = () => {
         />
 
         <Input
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => {
+            handleSearch(e.target.value);
+          }}
           defaultValue={searchParams.get("query")?.toString()}
           placeholder="Tulis lokasimu"
           className="focus-visible:ring-none text-md border-none bg-transparent text-slate-900 outline-0 placeholder:text-slate-900 focus:text-slate-900  focus:ring-transparent"
         />
-        <Button onClick={handleSearch}>Cari</Button>
+        <Button>Cari</Button>
       </div>
     </>
   );
