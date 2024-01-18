@@ -44,7 +44,7 @@ const Dashboard = async ({
           <Button variant="secondary">Saved Location</Button>
           <Button variant="secondary">History</Button>
         </div>
-        <Suspense key={query} fallback={<LoadReports />}>
+        <Suspense fallback={<LoadReports />}>
           <ListReports query={query} />
         </Suspense>
       </div>
