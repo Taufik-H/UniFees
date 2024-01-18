@@ -11,12 +11,12 @@ export default function SearchReport() {
   const { replace } = useRouter();
   const [inputValue, setInputValue] = useState("");
 
-  const handleSearch = (term: string) => {
+  function handleSearch(term: string) {
     const params = new URLSearchParams(searchParams ? searchParams : "");
     term ? params.set("query", term) : params.delete("query");
 
-    replace(`${pathname}?${params.toString()}`);
-  };
+    replace(`${pathname}?${params}`);
+  }
 
   return (
     <>
