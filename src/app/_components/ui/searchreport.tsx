@@ -9,12 +9,12 @@ const SearchReport = () => {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const [searchTerm, setSearchTerm] = useState(searchParams.get("query"));
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
-  function handleSearch(term: string) {
-    const params = new URLSearchParams(searchParams);
-    if (term) {
-      params.set("query", term);
+  function handleSearch() {
+    const params = new URLSearchParams(searchTerm);
+    if (searchTerm) {
+      params.set("query", searchTerm);
     } else {
       params.delete("query");
     }
@@ -31,13 +31,13 @@ const SearchReport = () => {
 
         <Input
           onChange={(e) => {
-            handleSearch(e.target.value);
+            setSearchTerm(e.target.value);
           }}
           defaultValue={searchParams.get("query")?.toString()}
           placeholder="Tulis lokasimu"
           className="focus-visible:ring-none text-md border-none bg-transparent text-slate-900 outline-0 placeholder:text-slate-900 focus:text-slate-900  focus:ring-transparent"
         />
-        <Button>Cari</Button>
+        <Button onClick={() => handleSearch()}>Cari</Button>
       </div>
     </>
   );
