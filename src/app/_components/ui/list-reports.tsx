@@ -7,13 +7,7 @@ import { Button } from "./button";
 import Image from "next/image";
 import Link from "next/link";
 
-const ListReports = async ({
-  query,
-  currentPage,
-}: {
-  query: string;
-  currentPage: number;
-}) => {
+const ListReports = async ({ query }: { query: string }) => {
   const getReports = await api.userReport.searchReports.query({
     location: query,
   });

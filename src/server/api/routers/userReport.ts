@@ -46,7 +46,6 @@ export const userReportRouter = createTRPCRouter({
     });
   }),
 
-  // search
   searchReports: publicProcedure
     .input(z.object({ location: z.string() }))
     .query(({ ctx, input }) => {

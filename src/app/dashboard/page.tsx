@@ -10,11 +10,10 @@ const Dashboard = async ({
 }: {
   searchParams?: {
     query?: string;
-    page?: string;
   };
 }) => {
   const query = searchParams?.query ?? "";
-  const currentPage = Number(searchParams?.page) ?? 1;
+
   return (
     <div className="max-container scroll-smooth">
       <div className="repative flex  flex-col items-center justify-center">
@@ -45,8 +44,8 @@ const Dashboard = async ({
           <Button variant="secondary">Saved Location</Button>
           <Button variant="secondary">History</Button>
         </div>
-        <Suspense key={query + currentPage} fallback={<LoadReports />}>
-          <ListReports query={query} currentPage={currentPage} />
+        <Suspense key={query} fallback={<LoadReports />}>
+          <ListReports query={query} />
         </Suspense>
       </div>
     </div>
