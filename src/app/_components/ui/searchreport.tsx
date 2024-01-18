@@ -11,7 +11,7 @@ const SearchReport = () => {
   const { replace } = useRouter();
   const [inputValue, setInputValue] = useState("");
 
-  const handleSearch = (term: string): void => {
+  const handleSearch = (term: string) => {
     console.log(`Searching... ${term}`);
 
     const params = new URLSearchParams(
