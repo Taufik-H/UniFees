@@ -10,10 +10,9 @@ const SearchReport = () => {
   const pathname = usePathname();
   const { replace } = useRouter();
   const [inputValue, setInputValue] = useState("");
-
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  /* eslint-disable @typescript-eslint/unbound-method */
   const handleSearch = (term: string) => {
-    console.log(`Searching... ${term}`);
-
     const params = new URLSearchParams(
       searchParams ? searchParams.toString() : "",
     );
@@ -37,7 +36,7 @@ const SearchReport = () => {
           onChange={(e) => setInputValue(e.target.value)}
           defaultValue={searchParams.get("query")?.toString()}
           placeholder="Tulis lokasimu"
-          className="focus-visible:ring-none text-md border-none bg-transparent text-slate-900 outline-0 placeholder:text-slate-900 focus:text-slate-900  focus:ring-transparent"
+          className="focus-visible:ring-none text-medium text-md border-none bg-transparent text-slate-900 outline-0 placeholder:text-slate-900 focus:text-slate-900  focus:ring-transparent"
         />
         <Button onClick={() => handleSearch(inputValue)}>Cari</Button>
       </div>
