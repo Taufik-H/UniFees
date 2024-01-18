@@ -2,14 +2,20 @@
 import { LuMapPin } from "react-icons/lu";
 import { Input } from "./input";
 import { Button } from "./button";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import handleSearch from "./handleSearch";
-import toast from "react-hot-toast";
 
 export default function SearchReport() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
   const [value, setValue] = useState<string>("");
 
-  handleSearch(value);
+  const handleSearch = (query: string) => {
+    const params = new URLSearchParams(searchParams);
+    query ? params.set("query", query) : params.delete("query");
+    replace(`${pathname}?${params.toString()}`);
+  };
 
   return (
     <>
@@ -24,7 +30,7 @@ export default function SearchReport() {
           placeholder="Tulis lokasimu"
           className="focus-visible:ring-none text-medium text-md border-none bg-transparent text-slate-900 outline-0 placeholder:text-slate-900 focus:text-slate-900  focus:ring-transparent"
         />
-        <Button>Cari</Button>
+        <Button onClick={() => handleSearch(value)}>Cari</Button>
       </div>
     </>
   );
