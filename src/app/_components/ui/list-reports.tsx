@@ -22,104 +22,127 @@ const ListReports = async ({ query }: { query: string }) => {
   }
   return (
     <div>
-      <div className=" my-5 grid grid-cols-1 gap-3 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
-        {getReports.map((report, index) => (
-          <Card className=" rounded-2xl" key={report.id + index}>
-            <CardContent className="p-5">
-              <div className="">
-                <div className="mb-5 flex items-center justify-between">
-                  <div className="flex flex-col">
-                    <p className="text-xs font-bold capitalize">kota</p>
-                    <p className="text-2xl font-bold">{report.location}</p>
-                    <div className="flex gap-2">
-                      <p className="text-xs text-slate-700">
-                        {report.latitude}
-                      </p>
-                      <p className="text-xs text-slate-700">
-                        {report.longitude}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex h-[82px] w-[94px] flex-col items-center justify-center gap-2 rounded-xl bg-rose-200 p-3 text-red-500">
-                    <BsGraphUpArrow size={25} className=" font-black" />
-                    <p className="text-sm">High Cost</p>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-5">
-                  <div className="flex items-center gap-3">
-                    <Image
-                      src="/assets/makan.svg"
-                      width={40}
-                      height={40}
-                      alt="high cost icon"
-                    />
-                    <div className="flex flex-col">
-                      <p className="text-xs font-medium">Makanan</p>
-                      <div className="text-md flex gap-1 font-medium">
-                        <span>{Idn(report.foodPrizeFrom)}</span>
-                        <span>s/d</span>
-                        <span>{Idn(report.foodPrizeTo)}</span>
+      {getReports.length === 0 ? (
+        <div className="flex min-h-screen w-full flex-col items-center justify-center ">
+          <Image
+            src={"assets/searchnotfound.svg"}
+            alt="Not Found"
+            width={500}
+            height={500}
+          />
+          <div className="flex flex-col items-center justify-center">
+            <p className="text-xl font-bold text-slate-900">
+              {query} tidak ditemukan
+            </p>
+            <p className="text-sm text-slate-600">
+              Periksa kembali keyword yang Anda masukkan.
+            </p>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className=" my-5 grid min-h-screen grid-cols-1 justify-center gap-3 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
+            {getReports.map((report, index) => (
+              <Card className=" rounded-2xl" key={report.id + index}>
+                <CardContent className="p-5">
+                  <div className="">
+                    <div className="mb-5 flex items-center justify-between">
+                      <div className="flex flex-col">
+                        <p className="text-xs font-bold capitalize">kota</p>
+                        <p className="text-2xl font-bold">{report.location}</p>
+                        <div className="flex gap-2">
+                          <p className="text-xs text-slate-700">
+                            {report.latitude}
+                          </p>
+                          <p className="text-xs text-slate-700">
+                            {report.longitude}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex h-[82px] w-[94px] flex-col items-center justify-center gap-2 rounded-xl bg-rose-200 p-3 text-red-500">
+                        <BsGraphUpArrow size={25} className=" font-black" />
+                        <p className="text-sm">High Cost</p>
                       </div>
                     </div>
-                  </div>
+                    <div className="flex flex-col gap-5">
+                      <div className="flex items-center gap-3">
+                        <Image
+                          src="/assets/makan.svg"
+                          width={40}
+                          height={40}
+                          alt="high cost icon"
+                        />
+                        <div className="flex flex-col">
+                          <p className="text-xs font-medium">Makanan</p>
+                          <div className="text-md flex gap-1 font-medium">
+                            <span>{Idn(report.foodPrizeFrom)}</span>
+                            <span>s/d</span>
+                            <span>{Idn(report.foodPrizeTo)}</span>
+                          </div>
+                        </div>
+                      </div>
 
-                  <div className="flex items-center gap-3">
-                    <Image
-                      src="/assets/transportasi.svg"
-                      width={40}
-                      height={40}
-                      alt="high cost icon"
-                    />
-                    <div className="flex flex-col">
-                      <p className="text-xs font-medium">Transportasi Umum</p>
-                      <div className="text-md flex gap-1 font-medium">
-                        <span>{Idn(report.transportationPrizeFrom)}</span>
-                        <span>s/d</span>
-                        <span>{Idn(report.transportationPrizeTo)}</span>
+                      <div className="flex items-center gap-3">
+                        <Image
+                          src="/assets/transportasi.svg"
+                          width={40}
+                          height={40}
+                          alt="high cost icon"
+                        />
+                        <div className="flex flex-col">
+                          <p className="text-xs font-medium">
+                            Transportasi Umum
+                          </p>
+                          <div className="text-md flex gap-1 font-medium">
+                            <span>{Idn(report.transportationPrizeFrom)}</span>
+                            <span>s/d</span>
+                            <span>{Idn(report.transportationPrizeTo)}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Image
+                          src="/assets/cost.svg"
+                          width={40}
+                          height={40}
+                          alt="high cost icon"
+                        />
+                        <div className="flex flex-col">
+                          <p className="text-xs font-medium">Kos</p>
+                          <div className="text-md flex gap-1 font-medium">
+                            <span>{Idn(report.costPrizeFrom)}</span>
+                            <span>s/d</span>
+                            <span>{Idn(report.costPrizeTo)}</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Image
-                      src="/assets/cost.svg"
-                      width={40}
-                      height={40}
-                      alt="high cost icon"
-                    />
-                    <div className="flex flex-col">
-                      <p className="text-xs font-medium">Kos</p>
-                      <div className="text-md flex gap-1 font-medium">
-                        <span>{Idn(report.costPrizeFrom)}</span>
-                        <span>s/d</span>
-                        <span>{Idn(report.costPrizeTo)}</span>
-                      </div>
-                    </div>
+                  {/* button bookmark & lihat selengkapnya */}
+                  <div className="my-5 ml-3 flex items-center gap-5 text-slate-300">
+                    <MdVerifiedUser />
+                    <p className="italic">belum ada yang menyetujui data</p>
                   </div>
-                </div>
-              </div>
-              {/* button bookmark & lihat selengkapnya */}
-              <div className="my-5 ml-3 flex items-center gap-5 text-slate-300">
-                <MdVerifiedUser />
-                <p className="italic">belum ada yang menyetujui data</p>
-              </div>
-              <div className="flex items-center justify-start gap-3">
-                <Button
-                  variant={"ghost"}
-                  size="icon"
-                  className="rounded-lg border border-slate-200"
-                >
-                  <BsBookmark />
-                  {/* jika di klik */}
-                  {/* <BsBookmarkCheckFill /> */}
-                </Button>
-                <Link href={"#"}>
-                  <Button variant={"outline"}>Lihat Selengkapnya</Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+                  <div className="flex items-center justify-start gap-3">
+                    <Button
+                      variant={"ghost"}
+                      size="icon"
+                      className="rounded-lg border border-slate-200"
+                    >
+                      <BsBookmark />
+                      {/* jika di klik */}
+                      {/* <BsBookmarkCheckFill /> */}
+                    </Button>
+                    <Link href={"#"}>
+                      <Button variant={"outline"}>Lihat Selengkapnya</Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

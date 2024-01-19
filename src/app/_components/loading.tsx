@@ -1,3 +1,7 @@
 export default function LoadReports() {
-  return "loading...";
+  return (
+    <>
+      <div className="mt-20 flex justify-center">Loading...</div>
+    </>
+  );
 }

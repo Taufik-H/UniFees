@@ -35,6 +35,11 @@ export default function SearchReport() {
         />
         <Button onClick={() => handleSearch(type)}>Cari</Button>
       </div>
+      <div className="flex items-center justify-center">
+        <p className="w-10/12 text-start text-xs text-white">
+          Contoh : Bandung,Purwokerto,Jakarta, dsb
+        </p>
+      </div>
     </>
   );
 }

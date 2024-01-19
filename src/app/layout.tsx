@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <script
         async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaNiN-jv_uekKLWWmBNR4TNkAcJQiRak8&callback=console.debug&libraries=maps,marker&v=beta"

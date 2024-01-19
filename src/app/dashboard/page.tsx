@@ -33,9 +33,6 @@ const Dashboard = async ({
             Optimalkan pengeluaran sehari-hari dengan mudah dan efisien
           </p>
           <SearchReport />
-          <p className="text-start text-xs text-white">
-            Contoh : Bandung,Purwokerto,Jakarta, dsb
-          </p>
         </div>
       </div>
       <div className=" padding-container my-10">
