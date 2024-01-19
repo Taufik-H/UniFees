@@ -16,7 +16,7 @@ export default function SearchReport() {
     if (value) {
       newParams.set("query", value);
     } else {
-      newParams.delete("");
+      newParams.delete("query");
     }
     router.push(`${pathname}?${newParams.toString()}`);
   };
