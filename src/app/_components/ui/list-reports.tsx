@@ -41,7 +41,7 @@ const ListReports = async ({ query }: { query: string }) => {
         </div>
       ) : (
         <>
-          <div className=" my-5 grid min-h-screen grid-cols-1 justify-center gap-3 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
+          <div className=" my-5 grid  grid-cols-1 justify-center gap-3 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
             {getReports.map((report, index) => (
               <Card className=" rounded-2xl" key={report.id + index}>
                 <CardContent className="p-5">
